@@ -5,7 +5,7 @@ def main():
     arr = open("number1000.txt").read().split()  # Replace test file here
     for i in range(0, len(arr)):
         arr[i] = int(arr[i])
-    print(arr)
+    #print(arr)
     time_start = timeit.default_timer()
     comparisons = mergesort(arr, 0, len(arr) - 1)
     time_stop = timeit.default_timer()
@@ -15,12 +15,11 @@ def main():
 
 
 def mergesort(arr, n, m):
-    s = 43
     x = y = z = comparisons = 0
     mid = (n + m) // 2
-    if m - n <= s:  # insert S here
+    if m - n <= 42:  # insert S here
         z = insertionSort(arr, n, m)  # code here is changed to perform insertion sort below S elements
-    elif m - n > s:  # insert S here
+    elif m - n > 42:  # insert S here
         x = mergesort(arr, n, mid)
         y = mergesort(arr, mid + 1, m)
         comparisons = merge(arr, n, m)
@@ -68,7 +67,7 @@ def merge(arr, n, m):
 
 
 def insertionSort(arr, n, m):
-    comparisons = 0
+    comparisons = 1
     for i in range(n, m + 1):
         key = arr[i]
         j = i - 1
