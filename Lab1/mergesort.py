@@ -5,7 +5,7 @@ def main():
     arr = open("number1000.txt").read().split()     # Replace test file here
     for i in range(0, len(arr)):
         arr[i] = int(arr[i])
-    print(arr)
+    #print(arr)
     time_start = timeit.default_timer()
     comparisons = mergesort(arr, 0, len(arr) - 1)
     time_stop = timeit.default_timer()
@@ -62,6 +62,5 @@ def merge(arr, n, m):
             n += 1
             
     return comparisons
-
 
 main()
