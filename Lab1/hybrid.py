@@ -2,36 +2,43 @@ import timeit
 
 
 def main():
-    arr = open("number10000.txt").read().split()  # Replace test file here
+    arr = open("number1000.txt").read().split()  # Replace test file here
     for i in range(0, len(arr)):
         arr[i] = int(arr[i])
     print(arr)
     time_start = timeit.default_timer()
-    mergesort(arr, 0, len(arr) - 1)
+    comparisons = mergesort(arr, 0, len(arr) - 1)
     time_stop = timeit.default_timer()
     print(arr)
     print("Time elapsed for program: ", (time_stop - time_start) * 1000, "milliseconds")  # Time in milliseconds
+    print("Number of comparisons: ", comparisons)
 
 
 def mergesort(arr, n, m):
     s = 43
+    x = y = z = comparisons = 0
     mid = (n + m) // 2
     if m - n <= s:  # insert S here
-        insertionSort(arr, n, m)  # code here is changed to perform insertion sort below S elements
+        z = insertionSort(arr, n, m)  # code here is changed to perform insertion sort below S elements
     elif m - n > s:  # insert S here
-        mergesort(arr, n, mid)
-        mergesort(arr, mid + 1, m)
-    merge(arr, n, m)
+        x = mergesort(arr, n, mid)
+        y = mergesort(arr, mid + 1, m)
+        comparisons = merge(arr, n, m)
+
+    return comparisons+x+y+z
 
 
 def merge(arr, n, m):
+    comparisons = 0
+    
     if m - n <= 0:
-        return
-
+        return 1
+    
     mid = (n + m) // 2
     left = arr[n:mid + 1]
     right = arr[mid + 1:m + 1]
     while len(left) != 0 and len(right) != 0:
+        comparisons+=1
         if left[0] < right[0]:
             arr[n] = left[0]
             left.pop(0)
@@ -57,15 +64,21 @@ def merge(arr, n, m):
             right.pop(0)
             n += 1
 
+    return comparisons
+
 
 def insertionSort(arr, n, m):
+    comparisons = 0
     for i in range(n, m + 1):
         key = arr[i]
         j = i - 1
         while j >= n and key < arr[j]:
+            comparisons+=1
             arr[j + 1] = arr[j]
             j -= 1
         arr[j + 1] = key
+
+    return comparisons
 
 
 main()
